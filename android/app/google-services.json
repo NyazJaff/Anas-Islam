@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "367725028076",
+    "firebase_url": "https://anasislamqanda.firebaseio.com",
+    "project_id": "anasislamqanda",
+    "storage_bucket": "anasislamqanda.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367725028076:android:660acd7f64f627eaf67bc9",
+        "android_client_info": {
+          "package_name": "uk.co.nyazjaff.anasislam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "367725028076-sfm3cjd4cp83oujk3g75dnqsmnem2ncn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uk.co.nyazjaff.anasislam",
+            "certificate_hash": "764ae45cf0e5bd8e27c4d7324f5c6ad9546782e2"
+          }
+        },
+        {
+          "client_id": "367725028076-i21msokbi7qsg5nar6suetjss96k08ii.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC445Tm1Y4PkQo5nJA0AJ2QrCZcutWmdeA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "367725028076-i21msokbi7qsg5nar6suetjss96k08ii.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

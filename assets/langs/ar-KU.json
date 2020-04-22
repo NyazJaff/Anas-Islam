@@ -1,0 +1,21 @@
+{
+  "write_question_below": "تکایە پسارەکەت لە بۆشای خوارەوە بنوسە",
+  "get": "پەیوەندیمان  ",
+  "in_touch": "پێوە بکەن  ",
+  "your_question..": "پسارەکەت..",
+  "send": "ناردن!",
+  "type_your_question_before_pressing_send": "تکایە تەواوی پسیارەکەت لە بۆشایەکەی سەرەوە بنوسە",
+  "received_thank_you": "پسیارەکەت گەشت!        سوپاس",
+  "send_question": "ناردنی پسیار",
+  "admin": "ئەدمین",
+  "language": "زمانەکان",
+  "logout": "چونە دەرەوە",
+  "anas_islam": "ئەنەس ئیسلام",
+  "login": "Login",
+  "successfully_signed_in": "Successfully signed in!",
+  "invalid_email_or_password": "Invalid Email or Password!",
+  "questions": "Questions",
+  "copy": "Copy",
+  "copied": "Copied!"
+
+}

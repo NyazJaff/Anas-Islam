@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>367725028076-sai34lg4hgnko96ald5qnefg7jqb8obs.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.367725028076-sai34lg4hgnko96ald5qnefg7jqb8obs</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>367725028076-sfm3cjd4cp83oujk3g75dnqsmnem2ncn.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBc6ha_ZJrPgbWGM-PmocKOmM7KgqEMeCM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>367725028076</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>uk.co.nyazjaff.anasislam</string>
+	<key>PROJECT_ID</key>
+	<string>anasislamqanda</string>
+	<key>STORAGE_BUCKET</key>
+	<string>anasislamqanda.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:367725028076:ios:d4bc2fa184ee1100f67bc9</string>
+	<key>DATABASE_URL</key>
+	<string>https://anasislamqanda.firebaseio.com</string>
+</dict>
+</plist>

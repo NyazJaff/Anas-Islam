@@ -1,0 +1,21 @@
+{
+  "write_question_below": "لطفا سوال خود را داخل کادر پایین بنویسید",
+  "get": "گرفتن ",
+  "in_touch": "در تماس ",
+  "your_question..": "سوال شما..",
+  "send": "ارسال",
+  "type_your_question_before_pressing_send": "لطفاً قبل از فشار دادن ارسال ، سؤال خود را تایپ کنید",
+  "received_thank_you": "اخذ شده!    متشکرم",
+  "send_question": "ارسال سوال",
+  "admin": "مدیر",
+  "language": "زبان",
+  "logout": "خروج",
+  "anas_islam": "انس اسلامی",
+  "login": "Login",
+  "successfully_signed_in": "Successfully signed in!",
+  "invalid_email_or_password": "Invalid Email or Password!",
+  "questions": "Questions",
+  "copy": "Copy",
+  "copied": "Copied!"
+
+}
