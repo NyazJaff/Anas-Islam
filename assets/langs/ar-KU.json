@@ -11,11 +11,11 @@
   "language": "زمانەکان",
   "logout": "چونە دەرەوە",
   "anas_islam": "ئەنەس ئیسلام",
-  "login": "Login",
-  "successfully_signed_in": "Successfully signed in!",
-  "invalid_email_or_password": "Invalid Email or Password!",
-  "questions": "Questions",
-  "copy": "Copy",
-  "copied": "Copied!"
+  "login": "داخل بون",
+  "successfully_signed_in": "بەسەرکەوتوی داخل بویت",
+  "invalid_email_or_password": "ئیمێڵ یاخود رامزی نهنی هەلەیە!",
+  "questions": "پسارەکان",
+  "copy": "كۆپى",
+  "copied": "كۆپى کرا"
 
 }

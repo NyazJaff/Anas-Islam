@@ -5,8 +5,12 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import 'layout_helper.dart';
+
+String safeSubstring(text, start, end){
+  int length = text.length;
+  return text.substring(start, length >= end ? end : length);
+}
 
 double utilWinHeightSize(BuildContext context){
   return MediaQuery.of(context).size.height;
@@ -55,16 +59,6 @@ mainViews(scaffoldKey, viewBody){
   );
 }
 
-class UtilColours {
-  static const Color PRIMARY_BROWN = Color(0xffc6ac6e);
-  static const Color SAVE_BUTTON = Color(0xff00bfa5);
-
-  static const Color APP_BAR = Color(0xff38606A);
-  static const Color DRAWER = Color(0xff38606A);
-  static const Color APP_BAR_NAV_BUTTON = Color(0xffE1D7D5);
-  static const Color APP_BACKGROUND = Color(0xffE1D7D5);
-}
-
 launchURL(url) async {
 //    const url = 'https://flutter.dev';
   if (await canLaunch(url)) {
@@ -86,40 +80,13 @@ showToast(context, message){
   ));
 }
 
-Future<File> doesUrlFileExits(context, url) async{
-  final filename = url.substring(url.lastIndexOf("/") + 1);
-  String dir = (await getApplicationDocumentsDirectory()).path;
-  if(File('$dir/$filename').existsSync() == true){
-    return File('$dir/$filename');
-  }
-  return null;
-}
 
-deleteUrlFileIfExits(url) async{
+class UtilColours {
+  static const Color PRIMARY_BROWN = Color(0xffc6ac6e);
+  static const Color SAVE_BUTTON = Color(0xff00bfa5);
 
-  //TODO write deletion
-  final filename = url.substring(url.lastIndexOf("/") + 1);
-  String dir = (await getApplicationDocumentsDirectory()).path;
-  if(File('$dir/$filename').existsSync() == true){
-    return true;
-  }
-  return false;
-}
-
-Future<File> createFileOfUrl(String url) async {
-  final filename = url.substring(url.lastIndexOf("/") + 1);
-  String dir = (await getApplicationDocumentsDirectory()).path;
-
-  File file;
-  if(File('$dir/$filename').existsSync() == true){
-    file = File('$dir/$filename');
-  }else{
-    var request = await HttpClient().getUrl(Uri.parse(url));
-    var response = await request.close();
-    var bytes = await consolidateHttpClientResponseBytes(response);
-
-    file = new File('$dir/$filename');
-    await file.writeAsBytes(bytes);
-  }
-  return file;
+  static const Color APP_BAR = Color(0xff38606A);
+  static const Color DRAWER = Color(0xff38606A);
+  static const Color APP_BAR_NAV_BUTTON = Color(0xffE1D7D5);
+  static const Color APP_BACKGROUND = Color(0xffE1D7D5);
 }

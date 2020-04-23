@@ -92,9 +92,9 @@ class _QuestionListState extends State<QuestionList> {
             controller: _scrollController,
             itemCount: _questions.length,
             itemBuilder: (BuildContext ctx, int index) {
-              final swipedEmail = _questions[index];
+              final currentQuestion = _questions[index].data;
               return Dismissible(
-                  key: Key(_questions[index].data["question"] + _questions[index].data["date_created"].toString()),
+                  key: Key(safeSubstring(currentQuestion["question"] ,1, 8) + currentQuestion["date_created"].toString()),
 //                      key: ValueKey(index),
                   background: Container(
                     color: Colors.red[300],
@@ -115,12 +115,12 @@ class _QuestionListState extends State<QuestionList> {
                     ),
                   ),
                   onDismissed: (direction) {
-                    return handleDismiss(direction, index, swipedEmail);
+                    return handleDismiss(direction, index, _questions[index]);
                   },
                   child: ExpansionTile(
-                    key: Key(_questions[index].data["question"] + _questions[index].data["date_created"].toString()),
+                    key: Key(currentQuestion["question"] + currentQuestion["date_created"].toString()),
                     title: Text(
-                        _questions[index].data["question"],
+                        (currentQuestion["question"]),
                         style: arabicTxtStyle(),
                         overflow: TextOverflow.ellipsis),
                     children: <Widget>[
@@ -129,21 +129,25 @@ class _QuestionListState extends State<QuestionList> {
                           Padding(
                             padding: EdgeInsets.only(left: 9, right: 9),
                             child: Text(
-                                _questions[index].data["question"],
+                                currentQuestion["question"],
                                 style: arabicTxtStyle(paramSize: 17)) ,
                           ),
                           Row (
                             children: <Widget>[
+                              Text(
+                                formatDate(DateTime.parse(currentQuestion["date_created"].toDate().toString())),
+                                style: arabicTxtStyle(),
+                              ),
                               IconButton(
-                                icon: Icon(Icons.content_copy),
+                                icon: Icon(Icons.content_copy, color: UtilColours.APP_BAR,),
                                 tooltip: 'copy'.tr(),
                                 onPressed: () {
                                   setState(() {
-                                    Clipboard.setData(ClipboardData(text: _questions[index].data["question"]));
+                                    Clipboard.setData(ClipboardData(text: currentQuestion["question"]));
                                     scaffoldKey.currentState
                                         .showSnackBar(
                                         SnackBar(
-                                        content: Text("copied".tr())));
+                                            content: Text("copied".tr())));
                                   });
                                 },
                               ),
@@ -163,9 +167,15 @@ class _QuestionListState extends State<QuestionList> {
     );
   }
 
-  handleDismiss(DismissDirection direction, int index,swipedEmail) {
 
-    print(swipedEmail);
+  formatDate(now){
+    var formatter = new DateFormat('yyyy-MM-dd');
+    String formatted = formatter.format(now);
+    return formatted;
+  }
+  handleDismiss(DismissDirection direction, int index,currentQuestion) {
+
+    print(currentQuestion);
     _questions.removeAt(index);
     setState(() {});
     // Remove the dismissed item from the list
@@ -188,7 +198,7 @@ class _QuestionListState extends State<QuestionList> {
             label: "Undo",
             textColor: Colors.yellow,
             onPressed: () {
-              setState(() => _questions.insert(index, swipedEmail));
+              setState(() => _questions.insert(index, currentQuestion));
 //                  setState(() {});
             }),
       ),
