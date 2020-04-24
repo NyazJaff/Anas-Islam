@@ -34,7 +34,7 @@ class _SendQuestionState extends State<SendQuestion> with WidgetsBindingObserver
             backgroundColor: Colors.transparent,
             drawer: CustomDrawer(),
             appBar: new AppBar(
-              title: Text('Anas Islam', style: arabicTxtStyle(paramBold: true, paramSize: 30),),
+              title: Text('anas_islam'.tr(), style: arabicTxtStyle(paramBold: true, paramSize: 25),),
               iconTheme: new IconThemeData(color: UtilColours.APP_BAR), // The icon and color for drawer, by default is white
               actions: <Widget>[
 //                FlatButton(
@@ -69,7 +69,7 @@ class _SendQuestionState extends State<SendQuestion> with WidgetsBindingObserver
                         Padding(
                             padding: EdgeInsets.only(
                                 top: utilWinHeightSize(context) > 530
-                                    ? utilWinHeightSize(context) * 0.1
+                                    ? utilWinHeightSize(context) * 0.06
                                     : utilWinHeightSize(context) * 0.04)),
                         sendQuestionBox(context),
                         Padding(

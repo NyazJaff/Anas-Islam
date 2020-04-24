@@ -12,10 +12,10 @@
   "logout": "خروج",
   "anas_islam": "انس اسلامی",
   "login": "Login",
-  "successfully_signed_in": "Successfully signed in!",
-  "invalid_email_or_password": "Invalid Email or Password!",
-  "questions": "Questions",
-  "copy": "Copy",
-  "copied": "Copied!"
-
+  "successfully_signed_in": "با موفقیت وارد سیستم شد!",
+  "invalid_email_or_password": "ایمیل یا گذرواژه نامعتبر است!",
+  "questions": "سوالات",
+  "copy": "کپی",
+  "copied": "کپی شده!",
+  "choose_language": "زبان را انتخاب کنید"
 }

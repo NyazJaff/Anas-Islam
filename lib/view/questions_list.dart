@@ -83,6 +83,7 @@ class _QuestionListState extends State<QuestionList> {
   Widget build(BuildContext context) {
     return mainViews(
       scaffoldKey,
+      "questions".tr(),
       Container(
         child: _questions.length == 0
             ? Center(
@@ -133,10 +134,14 @@ class _QuestionListState extends State<QuestionList> {
                                 style: arabicTxtStyle(paramSize: 17)) ,
                           ),
                           Row (
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              Text(
-                                formatDate(DateTime.parse(currentQuestion["date_created"].toDate().toString())),
-                                style: arabicTxtStyle(),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 15, right: 15),
+                                child: Text(
+                                  formatDate(DateTime.parse(currentQuestion["date_created"].toDate().toString())),
+                                  style: arabicTxtStyle(paramSize: 15),
+                                ),
                               ),
                               IconButton(
                                 icon: Icon(Icons.content_copy, color: UtilColours.APP_BAR,),
@@ -158,9 +163,6 @@ class _QuestionListState extends State<QuestionList> {
 
                     ],
                   )
-//                    ListTile(
-//                      title: Text(_questions[index].data["question"]),
-//                    ),
               );
             }),
       ),
@@ -178,9 +180,6 @@ class _QuestionListState extends State<QuestionList> {
     print(currentQuestion);
     _questions.removeAt(index);
     setState(() {});
-    // Remove the dismissed item from the list
-
-//    setState(() {});
     String action;
     if (direction == DismissDirection.startToEnd) {
       //deleteItem();
@@ -206,7 +205,7 @@ class _QuestionListState extends State<QuestionList> {
         .closed
         .then((reason) {
       if (reason != SnackBarClosedReason.action) {
-        // Make API call to backend to update status
+
       }
     });
   }

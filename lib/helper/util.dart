@@ -1,11 +1,10 @@
 import 'package:anasislam/sidebar/custom_drawer.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'dart:io';
-import 'package:path_provider/path_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'layout_helper.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 
 String safeSubstring(text, start, end){
   int length = text.length;
@@ -36,7 +35,7 @@ appBar(BuildContext context, title){
   );
 }
 
-mainViews(scaffoldKey, viewBody){
+mainViews(scaffoldKey,title, viewBody,){
   return Scaffold(
     body: Stack(children: <Widget>[
       appBgImage(),
@@ -45,6 +44,7 @@ mainViews(scaffoldKey, viewBody){
         backgroundColor: Colors.transparent,
         drawer: CustomDrawer(),
         appBar: AppBar(
+          title: Text(title, style: arabicTxtStyle(paramSize: 22, paramBold: true)),
           iconTheme: new IconThemeData(color: UtilColours.APP_BAR),
           // The icon and color for drawer, by default is white
           backgroundColor: Colors.transparent,

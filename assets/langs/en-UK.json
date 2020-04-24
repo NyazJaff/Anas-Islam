@@ -16,5 +16,6 @@
   "invalid_email_or_password": "Invalid Email or Password!",
   "questions": "Questions",
   "copy": "Copy",
-  "copied": "Copied!"
+  "copied": "Copied!",
+  "choose_language": "Choose Language"
 }

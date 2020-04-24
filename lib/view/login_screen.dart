@@ -186,8 +186,8 @@ class _LoginScreen1State extends State<LoginScreen1> {
                           setState(() {
                             checking = true;
                           });
-                        auth.signIn("anasislam@app.com", "1234567890").then((value) {
-//                          auth.signIn(emailInput.text, passwordInput.text).then((value) {
+//                        auth.signIn("anasislam@app.com", "1234567890").then((value) {
+                          auth.signIn(emailInput.text, passwordInput.text).then((value) {
                             if (value == 'Success') {
                               FocusScope.of(context).requestFocus(new FocusNode());
                               valid = true;

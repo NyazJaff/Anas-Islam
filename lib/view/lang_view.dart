@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:anasislam/helper/layout_helper.dart';
 import 'package:anasislam/sidebar/custom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -30,7 +31,7 @@ class _LanguageViewState extends State<LanguageView> {
                 horizontal: 24,
               ),
               child: Text(
-                'Choose language',
+                'choose_language'.tr(),
                 style: TextStyle(
                   color: Colors.blue,
                   fontFamily: 'Montserrat',
@@ -42,39 +43,23 @@ class _LanguageViewState extends State<LanguageView> {
             buildSwitchListTileMenuItem(
                 context: context,
                 title: 'کوردی',
-                subtitle: 'کوردی',
                 locale: EasyLocalization.of(context).supportedLocales[3]),
             buildDivider(),
             buildSwitchListTileMenuItem(
                 context: context,
                 title: 'عربي',
-                subtitle: 'عربي',
                 locale: EasyLocalization.of(context).supportedLocales[1]),
             buildDivider(),
             buildSwitchListTileMenuItem(
                 context: context,
                 title: 'فارسی',
-                subtitle: 'فارسی',
                 locale: EasyLocalization.of(context).supportedLocales[2]),
             buildDivider(),
             buildSwitchListTileMenuItem(
                 context: context,
                 title: 'English',
-                subtitle: 'English',
                 locale: EasyLocalization.of(context).supportedLocales[0]),
             buildDivider(),
-//            buildSwitchListTileMenuItem(
-//                context: context,
-//                title: 'Dutch',
-//                subtitle: 'Dutch',
-//                locale: EasyLocalization.of(context).supportedLocales[2]),
-//            buildDivider(),
-//            buildSwitchListTileMenuItem(
-//                context: context,
-//                title: 'Русский',
-//                subtitle: 'Русский',
-//                locale: EasyLocalization.of(context).supportedLocales[3]),
-//            buildDivider(),
           ],
         ),
       ),
@@ -91,7 +76,7 @@ class _LanguageViewState extends State<LanguageView> {
   );
 
   Container buildSwitchListTileMenuItem(
-      {BuildContext context, String title, String subtitle, Locale locale}) {
+      {BuildContext context, String title, Locale locale}) {
     return Container(
       margin: EdgeInsets.only(
         left: 10,
@@ -102,10 +87,8 @@ class _LanguageViewState extends State<LanguageView> {
           dense: true,
           // isThreeLine: true,
           title: Text(
-            title,
-          ),
-          subtitle: Text(
-            subtitle,
+              title,
+              style: arabicTxtStyle(paramSize: 18)
           ),
           onTap: () {
             log(locale.toString(), name: toString());
