@@ -30,13 +30,13 @@ class _SendQuestionState extends State<SendQuestion> with WidgetsBindingObserver
       body: Stack (
           children: <Widget>[
             appBgImage(),
-          Scaffold(
-            backgroundColor: Colors.transparent,
-            drawer: CustomDrawer(),
-            appBar: new AppBar(
-              title: Text('anas_islam'.tr(), style: arabicTxtStyle(paramBold: true, paramSize: 25),),
-              iconTheme: new IconThemeData(color: UtilColours.APP_BAR), // The icon and color for drawer, by default is white
-              actions: <Widget>[
+            Scaffold(
+                backgroundColor: Colors.transparent,
+                drawer: CustomDrawer(),
+                appBar: new AppBar(
+                  title: Text('anas_islam'.tr(), style: arabicTxtStyle(paramBold: true, paramSize: 25),),
+                  iconTheme: new IconThemeData(color: UtilColours.APP_BAR), // The icon and color for drawer, by default is white
+                  actions: <Widget>[
 //                FlatButton(
 //                  child: Icon(Icons.language),
 //                  onPressed: () {
@@ -47,43 +47,43 @@ class _SendQuestionState extends State<SendQuestion> with WidgetsBindingObserver
 //                    );
 //                  },
 //                ),
-              ],
-              backgroundColor: Colors.transparent,
-              elevation: 0.0,
-            ),
-            body: Center (
-              child: Container(
-                child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Text.rich(
-                          TextSpan(
-                            children: <TextSpan>[
-                              TextSpan(text: 'get'.tr(), style: arabicTxtStyle(paramSize: 40, paramBold: true)),
-                              TextSpan(text: 'in_touch'.tr(), style: arabicTxtStyle(paramSize: 35, paramBold: true)),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                            padding: EdgeInsets.only(
-                                top: utilWinHeightSize(context) > 530
-                                    ? utilWinHeightSize(context) * 0.06
-                                    : utilWinHeightSize(context) * 0.04)),
-                        sendQuestionBox(context),
-                        Padding(
-                            padding: EdgeInsets.only(
-                                top: utilWinHeightSize(context) > 530
-                                    ? utilWinHeightSize(context) * 0.1
-                                    : utilWinHeightSize(context) * 0.04)),
-                        socialMediaLinks()
-                      ],
-                    )
+                  ],
+                  backgroundColor: Colors.transparent,
+                  elevation: 0.0,
                 ),
-              ),
-            )
-          ),
+                body: Center (
+                  child: Container(
+                    child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Text.rich(
+                              TextSpan(
+                                children: <TextSpan>[
+                                  TextSpan(text: 'get'.tr(), style: arabicTxtStyle(paramSize: 40, paramBold: true)),
+                                  TextSpan(text: 'in_touch'.tr(), style: arabicTxtStyle(paramSize: 35, paramBold: true)),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                                padding: EdgeInsets.only(
+                                    top: utilWinHeightSize(context) > 530
+                                        ? utilWinHeightSize(context) * 0.06
+                                        : utilWinHeightSize(context) * 0.04)),
+                            sendQuestionBox(context),
+                            Padding(
+                                padding: EdgeInsets.only(
+                                    top: utilWinHeightSize(context) > 530
+                                        ? utilWinHeightSize(context) * 0.1
+                                        : utilWinHeightSize(context) * 0.04)),
+                            socialMediaLinks()
+                          ],
+                        )
+                    ),
+                  ),
+                )
+            ),
           ]
       ),
     );
@@ -101,17 +101,18 @@ class _SendQuestionState extends State<SendQuestion> with WidgetsBindingObserver
               Padding(
                 padding: EdgeInsets.all(7.0),
                 child: Container(
-                    color: Color(0xff3b5998),
+                    color: Color(0xffffffff),
                     width: 40.0,
                     height: 40.0,
-                    child: IconButton(
-                      icon: Icon(FontAwesomeIcons.instagram),
-                      iconSize: 25,
-                      color: Colors.white.withOpacity(1),
+                    child: FlatButton(
+                      padding: EdgeInsets.all(0.0),
+                      child: Image.asset('assets/icons/Instagram.png'),
+//                      color: Color(0xfffe4164),
                       onPressed: () {
-                        launchURL('https://www.instagram.com/islam_fatawa2018/');
+                        launchURL('https://www.instagram.com/anas_islam_persian');
                       },
-                    )),
+                    )
+                ),
               ),
               Padding(
                 padding: EdgeInsets.all(7.0),
@@ -139,7 +140,22 @@ class _SendQuestionState extends State<SendQuestion> with WidgetsBindingObserver
                       iconSize: 25,
                       color: Color(0xffffffff),
                       onPressed: () {
-                        launchURL('https://t.me/islam_Fatawa');
+                        launchURL('https://t.me/anas_islam');
+                      },
+                    )),
+              ),
+              Padding(
+                padding: EdgeInsets.all(7.0),
+                child: Container(
+                    color: Color(0xff25D366),
+                    width: 40.0,
+                    height: 40.0,
+                    child: IconButton(
+                      icon: Icon(FontAwesomeIcons.whatsapp),
+                      iconSize: 25,
+                      color: Color(0xffffffff),
+                      onPressed: () {
+                        launchURL('https://chat.whatsapp.com/Ft0Nq20Kz7q6RdHqy3ez3m');
                       },
                     )),
               ),
@@ -243,6 +259,8 @@ class _SendQuestionState extends State<SendQuestion> with WidgetsBindingObserver
                             ));
                             valid = true;
                             commentTxt.text = "";
+                            setState(() {
+                            });
                           });
                           FocusScope.of(context).requestFocus(new FocusNode());
                         }else{

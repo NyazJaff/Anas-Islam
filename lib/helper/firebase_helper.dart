@@ -11,3 +11,13 @@ Future<void> addQuestion(question) async {
   });
   print(ref.documentID);
 }
+
+deleteFirebaseDocument(documentID) async{
+  final databaseReference = Firestore.instance;
+  databaseReference.collection('QUESTIONS').document(documentID).delete();
+//  await Firestore.instance.runTransaction((Transaction myTransaction) async {
+//    print(reference);
+//    await myTransaction.delete(reference);
+//
+//  });
+}

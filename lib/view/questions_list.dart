@@ -1,3 +1,4 @@
+import 'package:anasislam/helper/firebase_helper.dart';
 import 'package:anasislam/helper/layout_helper.dart';
 import 'package:anasislam/helper/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -86,9 +87,7 @@ class _QuestionListState extends State<QuestionList> {
       "questions".tr(),
       Container(
         child: _questions.length == 0
-            ? Center(
-          child: Text('No questions to show'),
-        )
+            ? Center(child: Text('No questions to show'),)
             : ListView.builder(
             controller: _scrollController,
             itemCount: _questions.length,
@@ -169,15 +168,7 @@ class _QuestionListState extends State<QuestionList> {
     );
   }
 
-
-  formatDate(now){
-    var formatter = new DateFormat('yyyy-MM-dd');
-    String formatted = formatter.format(now);
-    return formatted;
-  }
   handleDismiss(DismissDirection direction, int index,currentQuestion) {
-
-    print(currentQuestion);
     _questions.removeAt(index);
     setState(() {});
     String action;
@@ -192,7 +183,7 @@ class _QuestionListState extends State<QuestionList> {
         .showSnackBar(
       SnackBar(
         content: Text("$action. Do you want to undo?"),
-        duration: Duration(seconds: 4),
+        duration: Duration(seconds: 2),
         action: SnackBarAction(
             label: "Undo",
             textColor: Colors.yellow,
@@ -205,7 +196,7 @@ class _QuestionListState extends State<QuestionList> {
         .closed
         .then((reason) {
       if (reason != SnackBarClosedReason.action) {
-
+        deleteFirebaseDocument(currentQuestion.documentID);
       }
     });
   }

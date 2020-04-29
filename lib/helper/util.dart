@@ -59,8 +59,13 @@ mainViews(scaffoldKey,title, viewBody,){
   );
 }
 
+formatDate(now){
+  var formatter = new DateFormat('yyyy-MM-dd');
+  String formatted = formatter.format(now);
+  return formatted;
+}
+
 launchURL(url) async {
-//    const url = 'https://flutter.dev';
   if (await canLaunch(url)) {
     await launch(url,  forceSafariVC: false);
   } else {
