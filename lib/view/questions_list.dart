@@ -94,7 +94,7 @@ class _QuestionListState extends State<QuestionList> {
             itemBuilder: (BuildContext ctx, int index) {
               final currentQuestion = _questions[index].data;
               return Dismissible(
-                  key: Key(safeSubstring(currentQuestion["question"] ,1, 8) + currentQuestion["date_created"].toString()),
+                  key: Key(safeSubstring(currentQuestion["question"] ,0, 8) + currentQuestion["date_created"].toString()),
 //                      key: ValueKey(index),
                   background: Container(
                     color: Colors.red[300],
@@ -120,7 +120,8 @@ class _QuestionListState extends State<QuestionList> {
                   child: ExpansionTile(
                     key: Key(currentQuestion["question"] + currentQuestion["date_created"].toString()),
                     title: Text(
-                        (currentQuestion["question"]),
+                        (safeSubstring(currentQuestion["question"] ,0, 55)),
+                        maxLines: 1,
                         style: arabicTxtStyle(),
                         overflow: TextOverflow.ellipsis),
                     children: <Widget>[

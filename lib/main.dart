@@ -22,6 +22,7 @@ void main() {
       Locale('ar', 'KU')
     ],
     path: 'assets/langs',
+    fallbackLocale: Locale('fa', 'PR'),
   ));
 
 //  runZoned(() {

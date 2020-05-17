@@ -1,4 +1,5 @@
 import 'package:anasislam/helper/firebase_helper.dart';
+import 'package:anasislam/loading/flip_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:anasislam/helper/util.dart';
 import 'package:anasislam/helper/layout_helper.dart';
@@ -15,6 +16,7 @@ class SendQuestion extends StatefulWidget {
 class _SendQuestionState extends State<SendQuestion> with WidgetsBindingObserver {
   final commentTxt = TextEditingController();
   bool valid = true;
+  bool checking = false;
 
 
   @override
@@ -144,21 +146,21 @@ class _SendQuestionState extends State<SendQuestion> with WidgetsBindingObserver
                       },
                     )),
               ),
-              Padding(
-                padding: EdgeInsets.all(7.0),
-                child: Container(
-                    color: Color(0xff25D366),
-                    width: 40.0,
-                    height: 40.0,
-                    child: IconButton(
-                      icon: Icon(FontAwesomeIcons.whatsapp),
-                      iconSize: 25,
-                      color: Color(0xffffffff),
-                      onPressed: () {
-                        launchURL('https://chat.whatsapp.com/Ft0Nq20Kz7q6RdHqy3ez3m');
-                      },
-                    )),
-              ),
+//              Padding(
+//                padding: EdgeInsets.all(7.0),
+//                child: Container(
+//                    color: Color(0xff25D366),
+//                    width: 40.0,
+//                    height: 40.0,
+//                    child: IconButton(
+//                      icon: Icon(FontAwesomeIcons.whatsapp),
+//                      iconSize: 25,
+//                      color: Color(0xffffffff),
+//                      onPressed: () {
+//                        launchURL('https://chat.whatsapp.com/Ft0Nq20Kz7q6RdHqy3ez3m');
+//                      },
+//                    )),
+//              ),
             ],
           ),
         ),
@@ -218,8 +220,8 @@ class _SendQuestionState extends State<SendQuestion> with WidgetsBindingObserver
                         maxLines: 9,
                       ),
                     ),
-                    !valid ?
-                    Padding(
+                    !valid
+                        ? Padding(
                       padding: const EdgeInsets.only(top:5.0, bottom: 5.0),
                       child: Text(
                         'type_your_question_before_pressing_send'.tr(),
@@ -227,8 +229,10 @@ class _SendQuestionState extends State<SendQuestion> with WidgetsBindingObserver
 //                      overflow: TextOverflow.ellipsis, // make text into dot dot
                         style: arabicTxtStyle(paramSize: 15, paramColour: Colors.redAccent),
                       ),
-                    ) : Container (),
-                    InkWell(
+                    )
+                        : Container (),
+                    !checking
+                        ? InkWell(
                       child: Container(
                         padding:
                         EdgeInsets.only(top: 10.0, bottom: 10.0),
@@ -246,8 +250,9 @@ class _SendQuestionState extends State<SendQuestion> with WidgetsBindingObserver
                         ),
                       ),
                       onTap: () async {
-                        // Validate returns true if the form is valid, or false
-                        // otherwise.
+                        setState(() {
+                          checking = true;
+                        });
                         if(commentTxt.text.length > 10) {
                           addQuestion(commentTxt.text).then((value) {
                             Scaffold.of(ctx).showSnackBar(SnackBar(
@@ -255,20 +260,31 @@ class _SendQuestionState extends State<SendQuestion> with WidgetsBindingObserver
                                 'received_thank_you'.tr(),
                                 style: arabicTxtStyle(paramColour: Colors.white),
                               ),
-                              duration: Duration(seconds: 2),
+                              duration: Duration(seconds: 5
+                              ),
                             ));
-                            valid = true;
-                            commentTxt.text = "";
                             setState(() {
+                              valid = true;
+                              checking = false;
+                              commentTxt.text = "";
                             });
                           });
                           FocusScope.of(context).requestFocus(new FocusNode());
                         }else{
                           valid = false;
+                          checking = false;
                         }
-                        setState(() {});
                       },
-                    ),
+                    )
+                        : Padding (
+                      padding: EdgeInsets.all(20.0),
+                      child: ColorLoader4 (
+                        dotOneColor:  Colors.red,
+                        dotTwoColor:  Colors.lightGreen,
+                        dotThreeColor:  Colors.blue,
+                        duration:  Duration(seconds: 2),
+                      ),
+                    )
                   ],
                 ),
               ],
