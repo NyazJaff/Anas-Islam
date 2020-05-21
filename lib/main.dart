@@ -8,10 +8,14 @@ import 'view/send_question.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:anasislam/helper/http_client.dart';
 
 void main() {
   Crashlytics.instance.enableInDevMode = true;
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
+  MyHttpClient httpClient = new MyHttpClient();
+
+  httpClient.wakeUpBackendServer();
 
   runApp(EasyLocalization (
     child: new MyApp(),

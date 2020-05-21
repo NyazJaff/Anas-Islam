@@ -33,7 +33,7 @@ class MyHttpClient  {
   }
 
 
-  void wakeup() async{
+  void wakeUpBackendServer() async{
     _makeJsonGet(url: 'wakeup_server');
   }
 
