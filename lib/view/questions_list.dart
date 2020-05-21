@@ -27,7 +27,6 @@ class _QuestionListState extends State<QuestionList> {
   _getQuestions() async {
 //    Query q = _firestore.collection('QUESTIONS').orderBy("date_created").limit(50);
     _questions = await httpClient.getQuestions("?limit=50");
-    print(_questions);
     setState(() {
       _loadingQuestions = true;
     });
@@ -35,8 +34,9 @@ class _QuestionListState extends State<QuestionList> {
 //    QuerySnapshot querySnapshot = await q.getDocuments();
 //    _questions = querySnapshot.documents;
 //    _lastDocument = querySnapshot.documents[querySnapshot.documents.length - 1];
-    _lastDocument = _questions[_questions.length - 1];
-    print(_lastDocument);
+    if(_questions.length > 0) {
+      _lastDocument = _questions[_questions.length - 1];
+    }
     setState(() {
       _loadingQuestions = false;
     });
@@ -93,7 +93,7 @@ class _QuestionListState extends State<QuestionList> {
       "questions".tr(),
       Container(
         child: _questions.length == 0
-            ? Center(child: Text('No questions to show' + _questions.length.toString()),)
+            ? Center(child: Text('No questions to show'))
             : ListView.builder(
             controller: _scrollController,
             itemCount: _questions.length,

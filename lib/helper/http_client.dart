@@ -33,6 +33,10 @@ class MyHttpClient  {
   }
 
 
+  void wakeup() async{
+    _makeJsonGet(url: 'wakeup_server');
+  }
+
   Future<List<dynamic>> getQuestions(dataParam) async {
     var response = await _makeJsonGet(url: dataParam);
     if(response['status'] == "SUCCESS")
