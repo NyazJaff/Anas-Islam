@@ -6,6 +6,7 @@ import 'package:anasislam/helper/layout_helper.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../sidebar/custom_drawer.dart';
+import '../helper/http_client.dart';
 
 class SendQuestion extends StatefulWidget {
   SendQuestion({Key key}) : super(key: key);
@@ -17,8 +18,8 @@ class _SendQuestionState extends State<SendQuestion> with WidgetsBindingObserver
   final commentTxt = TextEditingController();
   bool valid = true;
   bool checking = false;
-
-
+  MyHttpClient httpClient = new MyHttpClient();
+  String sendQuestionError = 'type_your_question_before_pressing_send'.tr();
   @override
   void initState() {
     // TODO: implement initState
@@ -171,7 +172,7 @@ class _SendQuestionState extends State<SendQuestion> with WidgetsBindingObserver
   sendQuestionBox(ctx) {
     return Builder(
         builder: (ctx) =>  Container(
-            width: 300.0,
+            width: isLargeScreen(ctx) ? 350.0 : 300.0,
             child:Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -224,7 +225,7 @@ class _SendQuestionState extends State<SendQuestion> with WidgetsBindingObserver
                         ? Padding(
                       padding: const EdgeInsets.only(top:5.0, bottom: 5.0),
                       child: Text(
-                        'type_your_question_before_pressing_send'.tr(),
+                        sendQuestionError,
 //                      textAlign: TextAlign.center,
 //                      overflow: TextOverflow.ellipsis, // make text into dot dot
                         style: arabicTxtStyle(paramSize: 15, paramColour: Colors.redAccent),
@@ -254,19 +255,25 @@ class _SendQuestionState extends State<SendQuestion> with WidgetsBindingObserver
                           checking = true;
                         });
                         if(commentTxt.text.length > 10) {
-                          addQuestion(commentTxt.text).then((value) {
-                            Scaffold.of(ctx).showSnackBar(SnackBar(
-                              content: Text(
-                                'received_thank_you'.tr(),
-                                style: arabicTxtStyle(paramColour: Colors.white),
-                              ),
-                              duration: Duration(seconds: 5
-                              ),
-                            ));
-                            setState(() {
-                              valid = true;
-                              checking = false;
+                          // todo add success check
+                          httpClient.saveQuestions(commentTxt.text).then((response) {
+                            if(response['status'] == 'SUCCESS'){
+                              Scaffold.of(ctx).showSnackBar(SnackBar(
+                                content: Text(
+                                  'received_thank_you'.tr(),
+                                  style: arabicTxtStyle(paramColour: Colors.white),
+                                ),
+                                duration: Duration(seconds: 5
+                                ),
+                              ));
                               commentTxt.text = "";
+                              valid = true;
+                            }else{
+                              valid = false;
+                              sendQuestionError = "we_did_not_get_your_question".tr();
+                            }
+                            setState(() {
+                              checking = false;
                             });
                           });
                           FocusScope.of(context).requestFocus(new FocusNode());

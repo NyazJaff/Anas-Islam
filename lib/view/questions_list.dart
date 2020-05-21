@@ -1,4 +1,5 @@
 import 'package:anasislam/helper/firebase_helper.dart';
+import 'package:anasislam/helper/http_client.dart';
 import 'package:anasislam/helper/layout_helper.dart';
 import 'package:anasislam/helper/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,27 +14,29 @@ class QuestionList extends StatefulWidget {
 
 class _QuestionListState extends State<QuestionList> {
   Firestore _firestore = Firestore.instance;
-  List<DocumentSnapshot> _questions = [];
+  List<dynamic> _questions = []; // List<DocumentSnapshot>
   bool _loadingQuestions = true;
   bool _gettingMoreQuestions = false;
   bool _moreQuestionsAvailable = true;
   int perPage = 20;
-  DocumentSnapshot _lastDocument;
+  Map<String, dynamic> _lastDocument; //DocumentSnapshot
   ScrollController _scrollController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
+  MyHttpClient httpClient = new MyHttpClient();
 
   _getQuestions() async {
-    Query q =
-    _firestore.collection('QUESTIONS').orderBy("date_created").limit(50);
-
+//    Query q = _firestore.collection('QUESTIONS').orderBy("date_created").limit(50);
+    _questions = await httpClient.getQuestions("?limit=50");
+    print(_questions);
     setState(() {
       _loadingQuestions = true;
     });
 
-    QuerySnapshot querySnapshot = await q.getDocuments();
-    _questions = querySnapshot.documents;
-    _lastDocument = querySnapshot.documents[querySnapshot.documents.length - 1];
-
+//    QuerySnapshot querySnapshot = await q.getDocuments();
+//    _questions = querySnapshot.documents;
+//    _lastDocument = querySnapshot.documents[querySnapshot.documents.length - 1];
+    _lastDocument = _questions[_questions.length - 1];
+    print(_lastDocument);
     setState(() {
       _loadingQuestions = false;
     });
@@ -48,17 +51,20 @@ class _QuestionListState extends State<QuestionList> {
       return;
     }
     _gettingMoreQuestions = true;
-    Query q = _firestore
-        .collection("QUESTIONS")
-        .orderBy("date_created")
-        .startAfter([_lastDocument.data['date_created']]).limit(perPage);
+    var allQuestions = await httpClient.getQuestions("?limit=50");
+//    Query q = _firestore
+//        .collection("QUESTIONS")
+//        .orderBy("date_created")
+//        .startAfter([_lastDocument.data['date_created']]).limit(perPage);
+//    QuerySnapshot querySnapshot = await q.getDocuments();
+//    _lastDocument = querySnapshot.documents[querySnapshot.documents.length - 1];
+//    _questions.addAll(querySnapshot.documents);
 
-    QuerySnapshot querySnapshot = await q.getDocuments();
-    if (querySnapshot.documents.length < perPage) {
+    if (allQuestions.length < perPage) {
       _moreQuestionsAvailable = false;
     }
-    _lastDocument = querySnapshot.documents[querySnapshot.documents.length - 1];
-    _questions.addAll(querySnapshot.documents);
+    _lastDocument = allQuestions[allQuestions.length - 1];
+    _questions.addAll(allQuestions);
 
     setState(() {});
     _gettingMoreQuestions = false;
@@ -87,12 +93,13 @@ class _QuestionListState extends State<QuestionList> {
       "questions".tr(),
       Container(
         child: _questions.length == 0
-            ? Center(child: Text('No questions to show'),)
+            ? Center(child: Text('No questions to show' + _questions.length.toString()),)
             : ListView.builder(
             controller: _scrollController,
             itemCount: _questions.length,
             itemBuilder: (BuildContext ctx, int index) {
-              final currentQuestion = _questions[index].data;
+//              final currentQuestion = _questions[index].data;  // old line from firebase use
+              final currentQuestion = _questions[index];
               return Dismissible(
                   key: Key(safeSubstring(currentQuestion["question"] ,0, 8) + currentQuestion["date_created"].toString()),
 //                      key: ValueKey(index),
@@ -139,7 +146,8 @@ class _QuestionListState extends State<QuestionList> {
                               Padding(
                                 padding: const EdgeInsets.only(left: 15, right: 15),
                                 child: Text(
-                                  formatDate(DateTime.parse(currentQuestion["date_created"].toDate().toString())),
+                                  formatDate(DateTime.parse(currentQuestion["date_created"].toString())),
+//                                  formatDate(DateTime.parse(currentQuestion["date_created"].toDate().toString())), // old line from firebase use
                                   style: arabicTxtStyle(paramSize: 15),
                                 ),
                               ),
@@ -197,7 +205,13 @@ class _QuestionListState extends State<QuestionList> {
         .closed
         .then((reason) {
       if (reason != SnackBarClosedReason.action) {
-        deleteFirebaseDocument(currentQuestion.documentID);
+        print(currentQuestion['document_id']);
+        if (direction == DismissDirection.startToEnd) {
+          httpClient.updateQuestion(currentQuestion['document_id'], {"deleted": true});
+        } else {
+          httpClient.updateQuestion(currentQuestion['document_id'], {"answered": true});
+        }
+        // deleteFirebaseDocument(currentQuestion.documentID);  //old line from firebase
       }
     });
   }

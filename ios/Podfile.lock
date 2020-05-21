@@ -170,6 +170,8 @@ PODS:
     - Flutter
   - Crashlytics (3.14.0):
     - Fabric (~> 1.10.2)
+  - device_id (0.0.1):
+    - Flutter
   - Fabric (1.10.2)
   - Firebase/Analytics (6.22.0):
     - Firebase/Core
@@ -319,6 +321,7 @@ PODS:
 
 DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
+  - device_id (from `.symlinks/plugins/device_id/ios`)
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Core
@@ -367,6 +370,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   cloud_firestore:
     :path: ".symlinks/plugins/cloud_firestore/ios"
+  device_id:
+    :path: ".symlinks/plugins/device_id/ios"
   firebase_analytics:
     :path: ".symlinks/plugins/firebase_analytics/ios"
   firebase_auth:
@@ -401,6 +406,7 @@ SPEC CHECKSUMS:
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
   cloud_firestore: c6f34148c1dfbb57a6147f9bb49c1c9f5c27036e
   Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
+  device_id: 4a0bf078741a3eec6ba0e6cc72e786395d5991b0
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   Firebase: 32f9520684e87c7af3f0704f7f88042626d6b536
   firebase_analytics: dacdcfc524d722fff13dcff942f0dfa47e6be567
