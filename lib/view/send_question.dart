@@ -22,7 +22,6 @@ class _SendQuestionState extends State<SendQuestion> with WidgetsBindingObserver
   String sendQuestionError = 'type_your_question_before_pressing_send'.tr();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 

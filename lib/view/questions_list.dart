@@ -27,31 +27,23 @@ class _QuestionListState extends State<QuestionList> {
   _getQuestions() async {
 //    Query q = _firestore.collection('QUESTIONS').orderBy("date_created").limit(50);
     _questions = await httpClient.getQuestions("?limit=50");
-    setState(() {
-      _loadingQuestions = true;
-    });
-
+    setState(() {_loadingQuestions = true;});
 //    QuerySnapshot querySnapshot = await q.getDocuments();
 //    _questions = querySnapshot.documents;
 //    _lastDocument = querySnapshot.documents[querySnapshot.documents.length - 1];
     if(_questions.length > 0) {
       _lastDocument = _questions[_questions.length - 1];
     }
-    setState(() {
-      _loadingQuestions = false;
-    });
+    setState(() {_loadingQuestions = false;});
   }
 
   _getMoreQuestions() async {
     print("Firebase Getting More Data");
-    if (_moreQuestionsAvailable == false) {
+    if (_moreQuestionsAvailable == false || _gettingMoreQuestions == true) {
       return;
     }
-    if (_gettingMoreQuestions == true) {
-      return;
-    }
-    _gettingMoreQuestions = true;
-    var allQuestions = await httpClient.getQuestions("?limit=50");
+    setState(() {_gettingMoreQuestions = true;});
+    var allQuestions = await httpClient.getQuestions("?limit=50&last_data_created="+_lastDocument['date_created']);
 //    Query q = _firestore
 //        .collection("QUESTIONS")
 //        .orderBy("date_created")
@@ -59,15 +51,14 @@ class _QuestionListState extends State<QuestionList> {
 //    QuerySnapshot querySnapshot = await q.getDocuments();
 //    _lastDocument = querySnapshot.documents[querySnapshot.documents.length - 1];
 //    _questions.addAll(querySnapshot.documents);
-
-    if (allQuestions.length < perPage) {
+    if (allQuestions.length < perPage || allQuestions.isEmpty) {
       _moreQuestionsAvailable = false;
     }
-    _lastDocument = allQuestions[allQuestions.length - 1];
+    if(allQuestions.isNotEmpty){
+      _lastDocument = allQuestions[allQuestions.length - 1];
+    }
     _questions.addAll(allQuestions);
-
-    setState(() {});
-    _gettingMoreQuestions = false;
+    setState(() {_gettingMoreQuestions = false;});
   }
 
   @override
@@ -152,7 +143,20 @@ class _QuestionListState extends State<QuestionList> {
                                 ),
                               ),
                               IconButton(
-                                icon: Icon(Icons.content_copy, color: UtilColours.APP_BAR,),
+                                icon: Icon(Icons.content_copy, color: Colors.green,),
+                                tooltip: 'copy'.tr(),
+                                onPressed: () {
+                                  setState(() {
+                                    Clipboard.setData(ClipboardData(text: currentQuestion["question"]));
+                                    scaffoldKey.currentState
+                                        .showSnackBar(
+                                        SnackBar(
+                                            content: Text("copied".tr())));
+                                  });
+                                },
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.delete, color: Colors.red,),
                                 tooltip: 'copy'.tr(),
                                 onPressed: () {
                                   setState(() {
