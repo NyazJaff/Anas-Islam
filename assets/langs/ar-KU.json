@@ -18,5 +18,16 @@
   "copy": "كۆپى",
   "copied": "كۆپى کرا",
   "choose_language": "زمان هەڵبژێرە",
-  "we_did_not_get_your_question": "پسیارەکەت نەگەشت،    تکایە لەرێگەی سۆشیەڵ میدیاوە پەیوەندیمان پێوە بکە"
+  "we_did_not_get_your_question": "پسیارەکەت نەگەشت،    تکایە لەرێگەی سۆشیەڵ میدیاوە پەیوەندیمان پێوە بکە",
+  "answers": "وڵامەکان",
+  "deleted": "رەش کرایەوە",
+  "no_questions_to_show": "هیچ پسیارێک نیە بۆ پیشاندان!",
+  "fatawa": "فەتاوا",
+  "your_answer": "وڵامەکەت..",
+  "answered": "وڵام درایەوە !",
+  "answer": "وڵام بدەوە",
+  "delete": "رەشکەوە !",
+  "deleted_questions": "رەش کراوەکان",
+  "this_question_not_answered": "ئەم پسایرە وڵام نەدراوەتەوە !"
+
 }

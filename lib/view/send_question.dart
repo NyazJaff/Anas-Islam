@@ -20,6 +20,7 @@ class _SendQuestionState extends State<SendQuestion> with WidgetsBindingObserver
   bool checking = false;
   MyHttpClient httpClient = new MyHttpClient();
   String sendQuestionError = 'type_your_question_before_pressing_send'.tr();
+
   @override
   void initState() {
     super.initState();
@@ -27,7 +28,6 @@ class _SendQuestionState extends State<SendQuestion> with WidgetsBindingObserver
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Stack (
           children: <Widget>[
@@ -282,20 +282,10 @@ class _SendQuestionState extends State<SendQuestion> with WidgetsBindingObserver
                         }
                       },
                     )
-                        : Padding (
-                      padding: EdgeInsets.all(20.0),
-                      child: ColorLoader4 (
-                        dotOneColor:  Colors.red,
-                        dotTwoColor:  Colors.lightGreen,
-                        dotThreeColor:  Colors.blue,
-                        duration:  Duration(seconds: 2),
-                      ),
-                    )
+                        :  loading()
                   ],
                 ),
               ],
-
-
             ))
     );}
 }

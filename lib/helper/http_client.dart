@@ -5,22 +5,25 @@ import 'dart:async';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
-import 'package:device_id/device_id.dart';
 
 
 class MyHttpClient  {
   HttpClient client = new HttpClient();
 
-  Future<Map<String, dynamic>> saveQuestions(question) async{
+  Future<Map<String, dynamic>> saveQuestions(
+      question, {
+                  type: 'question',
+                  answered: false,
+                }) async{
     return await _makeJsonPost({
       "question"   : question,
+      "type"       : type,
       "deleted"    : false,
-      "answered"   : false,
-      "device_id"  : await DeviceId.getID,
+      "answered"   : answered,
+      "device_id"  : 'test',
 //      "date_added" : DateTime.now().toString()
     });
   }
-
 
   Future<Map<String, dynamic>> updateQuestion(documentId, dataParam) async {
     var response = await _makeJsonPut(dataParam, url: documentId);
@@ -34,11 +37,21 @@ class MyHttpClient  {
 
 
   void wakeUpBackendServer() async{
-    _makeJsonGet(url: 'wakeup_server');
+    _makeJsonGet(dataParam: 'wakeup_server');
+  }
+
+  Future<List<dynamic>> getDeletedQuestions() async {
+    var response = await _makeJsonGet(dataParam: 'deleted');
+    if(response['status'] == "SUCCESS")
+      return response['data'];
+    else{
+      return [];
+    }
+//    return await _makeJsonGet(url: dataParam);
   }
 
   Future<List<dynamic>> getQuestions(dataParam) async {
-    var response = await _makeJsonGet(url: dataParam);
+    var response = await _makeJsonGet(dataParam: dataParam);
     if(response['status'] == "SUCCESS")
       return response['data'];
     else{
@@ -55,9 +68,10 @@ class MyHttpClient  {
     return _httpJsonResponse(response);
   }
 
-  Future<Map<String, dynamic>> _makeJsonGet({dataParam: "", url: ""}) async{
+  Future<Map<String, dynamic>> _makeJsonGet({dataParam: ""}) async{
+    print(apiUrl() + dataParam);
     var response = await http.get(
-        apiUrl() + url,
+        apiUrl() + dataParam,
         headers: {"Content-Type": "application/json"});
     return _httpJsonResponse(response);
   }

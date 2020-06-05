@@ -73,6 +73,38 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                 return Container();
                               },
                             ),
+                            MenuItem(
+                              icon: Icons.list,
+                              title: "answers".tr(),
+                              onTap: (){
+                                Navigator.pop(context);
+                                Navigator.pushNamed(context, '/answered_list');
+                              },
+                            ),
+                            MenuItem(
+                              icon: Icons.list,
+                              title: "fatawa".tr(),
+                              onTap: (){
+                                Navigator.pop(context);
+                                Navigator.pushNamed(context, '/fatawa_list');
+                              },
+                            ),
+                            FutureBuilder<FirebaseUser> (
+                              future: auth.getCurrentUser(),
+                              builder: (BuildContext context, AsyncSnapshot<FirebaseUser> snapshot) {
+                                if (snapshot.hasData) {
+                                  return MenuItem(
+                                    icon: Icons.list,
+                                    title: "deleted_questions".tr(),
+                                    onTap: (){
+                                      Navigator.pop(context);
+                                      Navigator.pushNamed(context, '/deleted_list');
+                                    },
+                                  );
+                                }
+                                return Container();
+                              },
+                            ),
                             Divider(
                               height: isLargeScreen(context) ? 64 : 0,
                               thickness: 0.5,
@@ -113,7 +145,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                 }
                               },
                             ),
-
                           ],
                         ),
                       ],

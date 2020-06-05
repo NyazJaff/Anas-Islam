@@ -1,13 +1,25 @@
+import 'package:anasislam/loading/flip_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:anasislam/helper/util.dart';
 
 TextStyle arabicTxtStyle({paramColour: UtilColours.APP_BAR, double paramSize: 20.0, paramBold: false}){
-
-   return TextStyle(
+  return TextStyle(
       fontSize: paramSize,
       color: paramColour,
       fontStyle: FontStyle.normal,
        fontWeight: paramBold ? FontWeight.bold : FontWeight.normal,
+  );
+}
+
+Widget loading(){
+  return Padding (
+    padding: EdgeInsets.all(20.0),
+    child: ColorLoader4 (
+      dotOneColor:  Colors.red,
+      dotTwoColor:  Colors.lightGreen,
+      dotThreeColor:  Colors.blue,
+      duration:  Duration(seconds: 2),
+    ),
   );
 }
 

@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'package:anasislam/view/deleted_list.dart';
 import 'package:anasislam/view/lang_view.dart';
 import 'package:anasislam/view/questions_list.dart';
+import 'package:anasislam/view/test.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'view/login_screen.dart';
@@ -46,12 +48,17 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           //Route
-          initialRoute: '/',
+          initialRoute: '/question_list',
           routes: {
             '/': (context) => SendQuestion(),
             '/languageView': (context) => LanguageView(),
             '/loginscreen1': (context) => LoginScreen1(),
-            '/question_list': (context) => QuestionList(),
+            '/question_list': (context) => QuestionList(title: 'questions'.tr(), answered: false, deleted: false, type: 'question', query_date_name: 'date_created asc'),
+            '/answered_list': (context) => QuestionList(title: 'answers'.tr(), answered: true, deleted: false, type: 'question', query_date_name: 'date_answered desc'),
+            '/fatawa_list': (context) => QuestionList(title: 'fatawa'.tr(), answered: true, deleted: false, type: 'fatawa', query_date_name: 'date_created desc'),
+            '/deleted_list': (context) => DeletedQuestionsList(title: 'Deleted'.tr()),
+//            '/pending_questions': (context) => PendingQuestions(),
+            '/test': (context) => Test(),
           },
 
           localizationsDelegates: [
