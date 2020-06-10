@@ -18,16 +18,17 @@
   "copy": "نسخ",
   "copied": "نسخ!",
   "choose_language": "اختيار اللغة",
-  "we_did_not_get_your_question": "We didn't get your question, please contact us on social media",
-  "answers": "Answers",
-  "deleted": "Deleted!",
-  "no_questions_to_show": "No questions to show!",
-  "fatawa": "Fatawa",
-  "your_answer": "Your Answer..",
-  "answered": "Answered!",
-  "delete": "Delete",
-  "deleted_questions": "Deleted Questions",
-  "this_question_not_answered": "This question is not answered!"
+  "we_did_not_get_your_question": "لم نحصل على سؤالك ، يرجى الاتصال بنا على وسائل التواصل الاجتماعي",
+  "answers": "الإجابات",
+  "deleted": "تم الحذف!",
+  "no_questions_to_show": "لا توجد أسئلة لإظهارها!",
+  "fatawa": "فتاوى",
+  "your_answer": "اجابتك..",
+  "answered": "أجاب!",
+  "answer": "إجابة",
+  "delete": "حذف",
+  "deleted_questions": "الأسئلة المحذوفة",
+  "this_question_not_answered": "لم يتم الرد على هذا السؤال!"
 
 
 }

@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           //Route
-          initialRoute: '/question_list',
+          initialRoute: '/',
           routes: {
             '/': (context) => SendQuestion(),
             '/languageView': (context) => LanguageView(),

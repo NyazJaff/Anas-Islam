@@ -23,9 +23,11 @@ class MenuItem extends StatelessWidget {
             SizedBox(
               width: 20,
             ),
-            Text(
-              title,
-              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 26, color: Colors.white),
+            Expanded(
+              child: Text(
+                title,
+                style: TextStyle(fontWeight: FontWeight.w300, fontSize: 20, color: Colors.white),
+              ),
             )
           ],
         ),
