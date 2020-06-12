@@ -28,5 +28,7 @@
   "answer": "Answer",
   "delete": "Delete",
   "deleted_questions": "Deleted Questions",
-  "this_question_not_answered": "This question is not answered!"
+  "this_question_not_answered": "This question is not answered!",
+  "add_new_fatawa":             "Add new Fatawa"
+
 }

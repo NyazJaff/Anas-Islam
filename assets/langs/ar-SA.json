@@ -28,7 +28,8 @@
   "answer": "إجابة",
   "delete": "حذف",
   "deleted_questions": "الأسئلة المحذوفة",
-  "this_question_not_answered": "لم يتم الرد على هذا السؤال!"
+  "this_question_not_answered": "لم يتم الرد على هذا السؤال!",
+  "add_new_fatawa":             "Add new Fatawa"
 
 
 }
