@@ -29,7 +29,7 @@
   "delete": "حذف",
   "deleted_questions": "الأسئلة المحذوفة",
   "this_question_not_answered": "لم يتم الرد على هذا السؤال!",
-  "add_new_fatawa":             "Add new Fatawa"
-
-
+  "add_new_fatawa"                         : "Add new Fatawa",
+  "save" : "حفظ",
+  "saved"                                   : "Saved"
 }

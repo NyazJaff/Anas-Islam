@@ -99,9 +99,9 @@ class MyHttpClient  {
   }
 
   String apiUrl(){
-    if(!kReleaseMode) {
-      return 'http://localhost:3000/api/v1/anas_islam/';
-    }
+//    if(!kReleaseMode) {
+//      return 'http://localhost:3000/api/v1/anas_islam/';
+//    }
     return 'https://anas-islam.herokuapp.com/api/v1/anas_islam/';
   }
 }

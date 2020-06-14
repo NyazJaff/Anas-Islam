@@ -8,6 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class QuestionList extends StatefulWidget {
   final String title;
@@ -133,61 +134,205 @@ class _QuestionListState extends State<QuestionList> {
         widget.title,
         Column(
           children: <Widget>[
-            Row (
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                _addNewFatawa()
+                widget.type == 'fatawa' && _userLoggedIn == true ? _addNewFatawa() : Container()
               ],
             ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    child: _loadingQuestions
-                        ? loading()
-                        : _questions.length == 0
-                            ? Center(child: Text('no_questions_to_show'.tr()))
-                            : Container(
-                                child: Expanded(
-                                  child: ListView.builder(
-                                      controller: _scrollController,
-                                      itemCount: _questions.length,
-                                      itemBuilder:
-                                          (BuildContext ctx, int index) {
-                                        _questionController
-                                            .add(new TextEditingController());
-                                        _answerController
-                                            .add(new TextEditingController());
-                                        if (_userLoggedIn) {
-                                          return _adminView(index);
-                                        }
-                                        return _userView(index);
-                                      }),
-                                ),
-                              ),
-                  ),
-                ],
-              ),
-            ),
+            _implementListView()
           ],
         ));
   }
 
-  Widget _addNewFatawa(){
-   return IconButton(
-      icon: Icon(
-        Icons.add,
-        color: Colors.green,
-      ),
-      tooltip: 'copy'.tr(),
-      onPressed: () {
-        setState(() {
+  Widget _implementListView() {
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            child: _loadingQuestions
+                ? loading()
+                : _questions.length == 0
+                    ? Center(child: Text('no_questions_to_show'.tr()))
+                    : Container(
+                        child: Expanded(
+                          child: ListView.builder(
+                              controller: _scrollController,
+                              itemCount: _questions.length,
+                              itemBuilder: (BuildContext ctx, int index) {
+                                _questionController
+                                    .add(new TextEditingController());
+                                _answerController
+                                    .add(new TextEditingController());
 
+                                if(widget.type =='fatawa'){
+                                  return _fatawaView(index);
+                                }else{
+                                  if (_userLoggedIn) {
+                                    return _adminView(index);
+                                  }
+                                  return _userView(index);
+                                }
+                              }),
+                        ),
+                      ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _addNewFatawa() {
+    return Container(
+      width: 250,
+      child: FlatButton(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Text(
+              'add_new_fatawa'.tr(),
+              style: arabicTxtStyle(),
+            ),
+            Icon(
+              Icons.add,
+              color: Colors.green,
+            )
+          ],
+        ),
+        onPressed: () {
+          _addNewFatawaDialog();
+        },
+      ),
+    );
+  }
+
+  Widget _fatawaView(index) {
+    final currentQuestion = _questions[index];
+    print(currentQuestion);
+    return ExpansionTile(
+      key: Key(currentQuestion["question"] +
+          currentQuestion["date_created"].toString()),
+      title: Text((safeSubstring(currentQuestion["question"], 0, 55)),
+          maxLines: 1,
+          style: arabicTxtStyle(),
+          overflow: TextOverflow.ellipsis),
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: Container(
+                  padding: EdgeInsets.all(10),
+                  child: Text(currentQuestion["question"],
+                      style: arabicTxtStyle(paramSize: 17))),
+            ),
+          ],
+        ),
+        SizedBox(height: 10),
+        _bottomOptions(index, currentQuestion)
+      ],
+    );
+  }
+
+  _addNewFatawaDialog() {
+    final bodyTxt = TextEditingController();
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(32.0))),
+            contentPadding: EdgeInsets.only(top: 10.0),
+            content: Container(
+                width: 400.0,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Expanded(
+                            child: Text(
+                              "add_new_fatawa".tr(),
+                              style: arabicTxtStyle(),
+                              textAlign: TextAlign.center,
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      Divider(
+                        color: Colors.grey,
+                        height: 4.0,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 30.0, right: 30.0),
+                        child: TextField(
+                          controller: bodyTxt,
+                          decoration: InputDecoration(
+                            hintText: "fatawa".tr() + " ....",
+                            border: InputBorder.none,
+                          ),
+                          maxLines: 8,
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            decoration: kBoxDecorationStyle,
+                            height: 60.0,
+                            child: Container(
+                              child: FlatButton(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                      'save'.tr(),
+                                      style: arabicTxtStyle(
+                                          paramColour: Colors.white,
+                                          paramSize: 25),
+                                    ),
+                                  ],
+                                ),
+                                onPressed: () {
+                                  if (bodyTxt.text.length > 10) {
+                                    httpClient
+                                        .saveQuestions(bodyTxt.text,
+                                            type: 'fatawa', answered: true)
+                                        .then((response) {
+                                      if (response['status'] == 'SUCCESS') {
+                                        _questions.insert(0, response['data']);
+                                        bodyTxt.text = "";
+                                        scaffoldKey.currentState.showSnackBar(
+                                            SnackBar(
+                                                content: Text("saved".tr())));
+                                        Navigator.pop(context);
+                                        setState(() {});
+                                      }
+                                    });
+                                    FocusScope.of(context)
+                                        .requestFocus(new FocusNode());
+                                  }
+                                },
+                              ),
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                )),
+          );
         });
-      },
-   );
   }
 
   Widget _userView(index) {
@@ -224,7 +369,7 @@ class _QuestionListState extends State<QuestionList> {
                   Expanded(
                     child: Container(
                         padding: EdgeInsets.all(10),
-                        child: Text(currentQuestion["answer"],
+                        child: Text(currentQuestion["answer"] != null ? currentQuestion["answer"] : '' ,
                             style: arabicTxtStyle(
                                 paramSize: 17, paramColour: Colors.green))),
                   ),
@@ -308,63 +453,67 @@ class _QuestionListState extends State<QuestionList> {
             ),
             _inputText(_answerController[index],
                 hintText: "your_answer..".tr()),
-            _bottomQuestionOptions(index, currentQuestion),
+            _bottomOptions(index, currentQuestion),
           ],
         )
       ],
     );
   }
 
-  Widget _bottomQuestionOptions(index, currentQuestion) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(left: 15, right: 15),
-          child: Text(
-            formatDate(
-                DateTime.parse(currentQuestion["date_created"].toString())),
+  Widget _bottomOptions(index, currentQuestion) {
+    return _userLoggedIn == true
+        ? Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(left: 15, right: 15),
+                child: Text(
+                  formatDate(DateTime.parse(
+                      currentQuestion["date_created"].toString())),
 //                                  formatDate(DateTime.parse(currentQuestion["date_created"].toDate().toString())), // old line from firebase use
-            style: arabicTxtStyle(paramSize: 15),
-          ),
-        ),
-        IconButton(
-          icon: Icon(
-            Icons.content_copy,
-            color: Colors.green,
-          ),
-          tooltip: 'copy'.tr(),
-          onPressed: () {
-            setState(() {
-              Clipboard.setData(
-                  ClipboardData(text: currentQuestion["question"]));
-              scaffoldKey.currentState
-                  .showSnackBar(SnackBar(content: Text("copied".tr())));
-            });
-          },
-        ),
-        IconButton(
-          icon: Icon(
-            Icons.done,
-            color: Colors.green,
-          ),
-          tooltip: 'answer'.tr(),
-          onPressed: () {
-            handleDismiss(DismissDirection.endToStart, index);
-          },
-        ),
-        IconButton(
-          icon: Icon(
-            Icons.delete,
-            color: Colors.red,
-          ),
-          tooltip: 'delete'.tr(),
-          onPressed: () {
-            handleDismiss(DismissDirection.startToEnd, index);
-          },
-        ),
-      ],
-    );
+                  style: arabicTxtStyle(paramSize: 15),
+                ),
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.content_copy,
+                  color: Colors.green,
+                ),
+                tooltip: 'copy'.tr(),
+                onPressed: () {
+                  setState(() {
+                    Clipboard.setData(
+                        ClipboardData(text: currentQuestion["question"]));
+                    scaffoldKey.currentState
+                        .showSnackBar(SnackBar(content: Text("copied".tr())));
+                  });
+                },
+              ),
+              widget.type == 'question'
+              ? IconButton(
+                icon: Icon(
+                  Icons.done,
+                  color: Colors.green,
+                ),
+                tooltip: 'answer'.tr(),
+                onPressed: () {
+                  handleDismiss(DismissDirection.endToStart, index);
+                },
+              )
+              : Container(),
+              IconButton(
+                icon: Icon(
+                  Icons.delete,
+                  color: Colors.red,
+                ),
+                tooltip: 'delete'.tr(),
+                onPressed: () {
+                  handleDismiss(DismissDirection.startToEnd, index);
+                },
+              ),
+            ],
+          )
+        : Container();
   }
 
   Widget _inputText(_controller, {maxLine: 7, hintText: ''}) {
@@ -392,12 +541,15 @@ class _QuestionListState extends State<QuestionList> {
   handleDismiss(DismissDirection direction, int index) {
     final currentQuestion = _questions[index];
     closeQuestion() {
-      print(currentQuestion['document_id']);
       if (direction == DismissDirection.startToEnd) {
         httpClient.updateQuestion(currentQuestion['document_id'], {
           "deleted": true,
           "answered": false,
           "date_deleted": DateTime.now().toString()
+        }).then((value) {
+          scaffoldKey.currentState.showSnackBar(
+              SnackBar(
+                  content: Text("deleted".tr())));
         });
       } else if (direction == DismissDirection.endToStart) {
         httpClient.updateQuestion(currentQuestion['document_id'], {
@@ -407,44 +559,32 @@ class _QuestionListState extends State<QuestionList> {
           "date_answered": DateTime.now().toString(),
           "question": _questionController[index].text,
           "answer": _answerController[index].text,
+        }).then((value) {
+          scaffoldKey.currentState.showSnackBar(
+              SnackBar(
+                  content: Text("answered".tr())));
         });
       }
+      setState(() {
+        _questions.removeAt(index);
+        _questionController.removeAt(index);
+        _answerController.removeAt(index);
+      });
       // deleteFirebaseDocument(currentQuestion.documentID);  //old line from firebase
     }
-
-    _questions[index]['answer'] = _answerController[index].text;
-//    if(widget.answered == false && direction != DismissDirection.startToEnd){
-    _questions.removeAt(index);
-//    }
-    setState(() {});
-
-    String action;
-    if (direction == DismissDirection.startToEnd) {
-      //deleteItem();
-      action = "deleted";
-    } else {
-      //archiveItem();
-      action = "answered";
-    }
-    scaffoldKey.currentState
-        .showSnackBar(
-          SnackBar(
-            content: Text(action.tr()),
-            duration: Duration(seconds: 2),
-            action: SnackBarAction(
-                label: "Undo",
-                textColor: Colors.yellow,
-                onPressed: () {
-                  setState(() => _questions.insert(index, currentQuestion));
-//                  setState(() {});
-                }),
-          ),
-        )
-        .closed
-        .then((reason) {
-      if (reason != SnackBarClosedReason.action) {
-        closeQuestion();
-      }
-    });
+    closeQuestion();
   }
+
+  final kBoxDecorationStyle = BoxDecoration(
+    color: UtilColours.SAVE_BUTTON,
+    borderRadius: BorderRadius.only(
+        bottomLeft: Radius.circular(20.0), bottomRight: Radius.circular(20.0)),
+    boxShadow: [
+      BoxShadow(
+        color: Colors.black12,
+        blurRadius: 6.0,
+        offset: Offset(0, 2),
+      ),
+    ],
+  );
 }

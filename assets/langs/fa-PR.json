@@ -29,5 +29,7 @@
   "delete": "حذف",
   "deleted_questions": "سوالات حذف شده",
   "this_question_not_answered": "این سوال بی پاسخ مانده است!",
-  "add_new_fatawa":             "Add new Fatawa"
+  "add_new_fatawa"                          : "Add new Fatawa",
+  "save"                                    : "حفظ",
+  "saved"                                   : "Saved"
 }
